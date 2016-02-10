@@ -16,7 +16,8 @@
         "issues":"https://github.com/dersam/rtclient/issues"
     },
     "require":{
-        "php": ">=7.0.0"
+        "php": ">=7.0.0",
+        "ext-curl": "*"
     },
     "autoload": {
         "psr-4": {
