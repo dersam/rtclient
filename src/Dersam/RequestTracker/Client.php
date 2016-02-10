@@ -10,6 +10,8 @@ use Dersam\RequestTracker\Exceptions\RequestTrackerException;
  *
  * @author Sam Schmidt <samuel@dersam.net>
  * @since 2016-02-09
+ *
+ * @method int|boolean createTicket($parameters)
  */
 class Client
 {
@@ -94,5 +96,17 @@ class Client
 
         $response =  array('code'=>$code, 'body'=>$response);
         return $response;
+    }
+
+    public function __call($name, $arguments)
+    {
+        switch($name) {
+            case 'createTicket':
+                $action = new \Dersam\RequestTracker\Action\CreateTicket($arguments[0]);
+                return $this->send($action);
+                break;
+            default:
+                throw new RequestTrackerException($name.' is not a valid action.');
+        }
     }
 }

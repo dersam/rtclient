@@ -34,16 +34,12 @@ class ClientTest extends PHPUnit_Framework_TestCase
     {
         $rt = $this->getRequestTracker();
 
-        $action = new \Dersam\RequestTracker\Action\CreateTicket(
-            [
-                'Queue'=>'General',
-                'Requestor'=>'test@example.com',
-                'Subject'=>'Lorem Ipsum',
-                'Text'=>'dolor sit amet'
-            ]
-        );
-
-        $id = $rt->send($action);
+        $id = $rt->createTicket([
+            'Queue'=>'General',
+            'Requestor'=>'test@example.com',
+            'Subject'=>'Lorem Ipsum',
+            'Text'=>'dolor sit amet'
+        ]);
 
         $this->assertTrue(is_int($id));
     }
