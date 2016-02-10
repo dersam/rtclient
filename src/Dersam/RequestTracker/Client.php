@@ -17,7 +17,7 @@ class Client
     protected $password;
     protected $host;
 
-    public function __construct(string $user, string $password, string $host)
+    public function __construct(string $host, string $user, string $password)
     {
         $this->user = $user;
         $this->password = $password;
@@ -45,31 +45,32 @@ class Client
      */
     public function getHost()
     {
-        return $this->host;
+        return $this->host.'/REST/1.0';
     }
 
-    public function send(Action $action): array
+    public function send(Action $action)
     {
         return
         $action->processResponse(
             $this->post(
+                $this->getHost().$action->getEndpoint(),
                 $action->buildMessage($this)
             )
         );
     }
 
-    protected function post($data)
+    protected function post(string $destination, array $message)
     {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->requestUrl);
+        curl_setopt($ch, CURLOPT_URL, $destination);
         curl_setopt($ch, CURLOPT_POST, 1);
 
         if (!empty($contentType)) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-type: $contentType"));
         }
 
-        array_unshift($data, "");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        array_unshift($message, "");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $message);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);

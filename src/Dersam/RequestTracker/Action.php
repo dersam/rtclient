@@ -14,10 +14,20 @@ abstract class Action
     protected $requiredParameters = [];
     protected $parameters = [];
 
+    public function __construct(array $parameters)
+    {
+        $this->parameters($parameters);
+    }
+
     public function set(string $fieldName, $value)
     {
         $this->parameters[$fieldName] = $value;
         return $this;
+    }
+
+    public function parameters(array $parameters)
+    {
+        $this->parameters = $parameters;
     }
 
     public function getEndpoint() : string
@@ -79,11 +89,12 @@ abstract class Action
         return $content;
     }
 
-    function processResponse(array $response) : array
+    function processResponse(array $response)
     {
         $response = explode(chr(10), $response['body']);
         array_shift($response); //skip RT status response
         array_shift($response); //skip blank line
+        array_pop($response); //remove empty blank line in the end
         array_pop($response); //remove empty blank line in the end
 
         $parsedResponseData = array();

@@ -6,4 +6,4 @@
  * @since 2016-02-01
  */
 
-include 'RequestTracker.php';
+include 'vendor/autoload.php';

@@ -9,7 +9,7 @@
 
     <filter>
         <whitelist>
-            <file>RequestTracker.php</file>
+            <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>
 </phpunit>
