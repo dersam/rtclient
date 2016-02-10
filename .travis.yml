@@ -11,8 +11,8 @@ php:
 before_install: docker run -dit --name rt -p 8080:80 netsandbox/request-tracker
 
 script:
+  - composer install
   - phpunit --coverage-text --coverage-clover=coverage.clover
-  - ls -al
 
 #after_script:
 #  - wget https://scrutinizer-ci.com/ocular.phar
