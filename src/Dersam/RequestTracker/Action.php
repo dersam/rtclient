@@ -79,5 +79,28 @@ abstract class Action
         return $content;
     }
 
-    abstract function processResponse();
+    function processResponse(array $response) : array
+    {
+        $response = explode(chr(10), $response['body']);
+        array_shift($response); //skip RT status response
+        array_shift($response); //skip blank line
+        array_pop($response); //remove empty blank line in the end
+
+        $parsedResponseData = array();
+        $lastkey = null;
+        foreach ($response as $line) {
+            //RT will always preface a multiline with at least one space
+            if (substr($line, 0, 1)==' ') {
+                $parsedResponseData[$lastkey] .= "\n".trim($line);
+                continue;
+            }
+            $parts = explode(':', $line);
+            $key = array_shift($parts);
+            $value = implode(':', $parts);
+            $parsedResponseData[$key] = trim($value);
+            $lastkey=$key;
+        }
+
+        return $parsedResponseData;
+    }
 }

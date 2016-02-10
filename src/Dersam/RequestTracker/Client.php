@@ -48,9 +48,14 @@ class Client
         return $this->host;
     }
 
-    public function send(Action $action): Response
+    public function send(Action $action): array
     {
-        $message = $action->buildMessage($this);
+        return
+        $action->processResponse(
+            $this->post(
+                $action->buildMessage($this)
+            )
+        );
     }
 
     protected function post($data)
