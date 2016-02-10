@@ -20,8 +20,32 @@ class Client
         $this->host = $host;
     }
 
+    /**
+     * @return string
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHost()
+    {
+        return $this->host;
+    }
+
     public function send(Action $action): Response
     {
-
+        $message = $action->buildMessage($this);
     }
 }

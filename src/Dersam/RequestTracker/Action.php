@@ -56,9 +56,27 @@ abstract class Action
         return $valid;
     }
 
-    public function getContent()
+    public function buildMessage(Client $client)
     {
-        return $this->parameters;
+        $message = [
+            'user' => $client->getUser(),
+            'pass' => $client->getPassword()
+        ];
+
+        if (!empty($this->parameters)) {
+            $message['content'] = $this->compileParameters();
+        }
+
+        return $message;
+    }
+
+    private function compileParameters()
+    {
+        $content = "";
+        foreach ($this->parameters as $key => $value) {
+            $content .= "$key: $value".chr(10);
+        }
+        return $content;
     }
 
     abstract function processResponse();
