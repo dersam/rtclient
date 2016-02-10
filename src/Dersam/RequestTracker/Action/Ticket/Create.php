@@ -12,9 +12,4 @@ use Dersam\RequestTracker\Action;
 class CreateTicket extends Action
 {
     protected $endpoint = "/ticket/new";
-
-    function processResponse()
-    {
-        // TODO: Implement processResponse() method.
-    }
 }
