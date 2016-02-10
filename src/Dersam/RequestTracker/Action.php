@@ -56,5 +56,10 @@ abstract class Action
         return $valid;
     }
 
+    public function getContent()
+    {
+        return $this->parameters;
+    }
+
     abstract function processResponse();
 }
