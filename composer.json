@@ -1,0 +1,26 @@
+{
+    "name": "dersam/rtclient",
+    "type": "library",
+    "description": "PHP Client for Request Tracker API",
+    "keywords": ["request tracker","rest","rt","rt3","rt4"],
+    "homepage":  "http://dersam.github.com/rtclient/",
+    "license": "MIT",
+    "authors":[
+        {
+            "name": "Sam Schmidt",
+            "email": "samuel@dersam.net",
+            "homepage": "https://github.com/dersam"
+        }
+    ],
+    "support":{
+        "issues":"https://github.com/dersam/rtclient/issues"
+    },
+    "require":{
+        "php": ">=7.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dersam\\RequestTracker\\": "src/Dersam/RequestTracker"
+        }
+    }
+}
