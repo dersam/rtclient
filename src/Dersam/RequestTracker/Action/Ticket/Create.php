@@ -11,16 +11,7 @@ use Dersam\RequestTracker\Action;
  */
 class CreateTicket extends Action
 {
-
-    function validate()
-    {
-        // TODO: Implement validate() method.
-    }
-
-    function getEndpoint()
-    {
-        // TODO: Implement getEndpoint() method.
-    }
+    protected $endpoint = "/ticket/new";
 
     function processResponse()
     {
