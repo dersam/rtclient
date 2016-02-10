@@ -6,4 +6,8 @@
  * @since 2016-02-01
  */
 
-include 'vendor/autoload.php';
+if (file_exists('../vendor/autoload.php')) {
+    include '../vendor/autoload.php';
+} else {
+    include 'vendor/autoload.php';
+}
