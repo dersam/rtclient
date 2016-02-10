@@ -4,6 +4,10 @@
 
 Provides a PHP client library for the Request Tracker API.
 
+This is the successor to RTPHPLib- rtclient is a clean break from RTPHPLib,
+and will only ever support PHP 7.0+. If you must use an older version of PHP, use
+RTPHPLib instead.
+
 ##Requirements
 * PHP 7.0+
 * curl
