@@ -1,5 +1,7 @@
 #rtclient
 
+[![Build Status](https://travis-ci.org/dersam/rtclient.svg?branch=master)](https://travis-ci.org/dersam/rtclient)
+
 Provides a PHP client library for the Request Tracker API.
 
 ##Requirements
