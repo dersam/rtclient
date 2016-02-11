@@ -19,7 +19,7 @@ class Client
     protected $password;
     protected $host;
 
-    public function __construct(string $host, string $user, string $password)
+    public function __construct($host, $user, $password)
     {
         $this->user = $user;
         $this->password = $password;
@@ -61,7 +61,7 @@ class Client
         );
     }
 
-    protected function post(string $destination, array $message)
+    protected function post($destination, array $message)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $destination);

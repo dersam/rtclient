@@ -19,7 +19,7 @@ abstract class Action
         $this->parameters($parameters);
     }
 
-    public function set(string $fieldName, $value)
+    public function set($fieldName, $value)
     {
         $this->parameters[$fieldName] = $value;
         return $this;
@@ -30,7 +30,7 @@ abstract class Action
         $this->parameters = $parameters;
     }
 
-    public function getEndpoint() : string
+    public function getEndpoint()
     {
         return $this->endpoint;
     }
@@ -38,12 +38,12 @@ abstract class Action
     /**
      * @return mixed
      */
-    public function getLastValidationError() : string
+    public function getLastValidationError()
     {
         return $this->lastValidationError;
     }
 
-    public function validate() : boolean
+    public function validate()
     {
         $missing = array_diff_key(
             $this->requiredParameters,
