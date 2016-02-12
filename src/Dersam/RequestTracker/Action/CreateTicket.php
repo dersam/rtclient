@@ -12,7 +12,7 @@ use Dersam\RequestTracker\Action;
 class CreateTicket extends Action
 {
     protected $endpoint = "/ticket/new";
-    protected $requiredParameters = ['id'];
+    protected $requiredParameters = [];
 
     public function processResponse(array $response)
     {

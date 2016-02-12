@@ -58,7 +58,7 @@ abstract class Action
     {
         $missing = array_diff_key(
             $this->requiredParameters,
-            $this->parameters
+            array_keys($this->parameters)
         );
 
         $valid = true;

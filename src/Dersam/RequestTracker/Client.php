@@ -2,6 +2,7 @@
 namespace Dersam\RequestTracker;
 
 use Dersam\RequestTracker\Action\ReplyTicket;
+use Dersam\RequestTracker\Exceptions\ActionException;
 use Dersam\RequestTracker\Exceptions\AuthenticationException;
 use Dersam\RequestTracker\Exceptions\HttpException;
 use Dersam\RequestTracker\Exceptions\RequestTrackerException;
@@ -54,6 +55,10 @@ class Client
 
     public function send(Action $action)
     {
+        if (!$action->validate()) {
+            throw new ActionException('Request validation failed: '.$action->getLastValidationError());
+        }
+
         return
         $action->processResponse(
             $this->post(
