@@ -118,4 +118,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $action = new \Dersam\RequestTracker\Action\CreateTicket([]);
         $id = $rt->send($action);
     }
+
+    public function testActionSet()
+    {
+        $rt = $this->getRequestTracker();
+        $action = new \Dersam\RequestTracker\Action\CreateTicket([]);
+        $action->set('Queue', 'General');
+        $action->set('Requestor', 'bob@example.com');
+        $id = $rt->send($action);
+
+        $this->assertTrue(is_int($id));
+    }
 }
