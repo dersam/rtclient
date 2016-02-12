@@ -1,4 +1,6 @@
 <?php
+namespace Dersam\RequestTracker\Tests;
+
 use Dersam\RequestTracker\Action\ReplyTicket;
 
 /**
@@ -7,7 +9,7 @@ use Dersam\RequestTracker\Action\ReplyTicket;
  * @author Sam Schmidt <samuel@dersam.net>
  * @since 2016-02-09
  */
-class ClientTest extends PHPUnit_Framework_TestCase
+class ClientTest extends \PHPUnit_Framework_TestCase
 {
     private function getHost()
     {
