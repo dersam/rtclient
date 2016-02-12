@@ -4,6 +4,7 @@ namespace Dersam\RequestTracker\Tests;
 use Dersam\RequestTracker\Action\CommentTicket;
 use Dersam\RequestTracker\Action\ReplyTicket;
 use Dersam\RequestTracker\Action\SearchTickets;
+use Dersam\RequestTracker\Exceptions\ActionException;
 
 /**
  *
@@ -107,5 +108,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', $searchResults);
         $this->assertEquals('Lorem Ipsum', current($searchResults));
+    }
+
+    public function testValidationFail()
+    {
+        $this->setExpectedException(ActionException::class);
+
+        $rt = $this->getRequestTracker();
+        $action = new \Dersam\RequestTracker\Action\CreateTicket([]);
+        $id = $rt->send($action);
     }
 }
