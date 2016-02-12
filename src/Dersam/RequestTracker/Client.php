@@ -1,6 +1,7 @@
 <?php
 namespace Dersam\RequestTracker;
 
+use Dersam\RequestTracker\Action\ReplyTicket;
 use Dersam\RequestTracker\Exceptions\AuthenticationException;
 use Dersam\RequestTracker\Exceptions\HttpException;
 use Dersam\RequestTracker\Exceptions\RequestTrackerException;
@@ -12,6 +13,7 @@ use Dersam\RequestTracker\Exceptions\RequestTrackerException;
  * @since 2016-02-09
  *
  * @method int|boolean createTicket($parameters)
+ * @method int|boolean replyTicket($parameters)
  */
 class Client
 {
@@ -103,6 +105,10 @@ class Client
         switch($name) {
             case 'createTicket':
                 $action = new \Dersam\RequestTracker\Action\CreateTicket($arguments[0]);
+                return $this->send($action);
+                break;
+            case 'replyTicket':
+                $action = new ReplyTicket($arguments[0]);
                 return $this->send($action);
                 break;
             default:

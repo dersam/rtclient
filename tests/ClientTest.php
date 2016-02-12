@@ -43,4 +43,23 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue(is_int($id));
     }
+
+    public function testReplyTicket()
+    {
+        $rt = $this->getRequestTracker();
+
+        $id = $rt->createTicket([
+            'Queue'=>'General',
+            'Requestor'=>'test@example.com',
+            'Subject'=>'Lorem Ipsum',
+            'Text'=>'dolor sit amet'
+        ]);
+
+        $out = $rt->replyTicket(array(
+            'id' => $id,
+            'Text' => 'this is a test reply'
+        ));
+
+        $this->assertTrue($out);
+    }
 }

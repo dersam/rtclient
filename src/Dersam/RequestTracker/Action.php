@@ -13,6 +13,7 @@ abstract class Action
     protected $lastValidationError;
     protected $requiredParameters = [];
     protected $parameters = [];
+    protected $defaults = [];
 
     public function __construct(array $parameters)
     {
@@ -32,7 +33,17 @@ abstract class Action
 
     public function getEndpoint()
     {
-        return $this->endpoint;
+        $endpoint = $this->endpoint;
+
+        if (isset($this->parameters['id'])) {
+            $endpoint = str_replace(
+                '{id}',
+                $this->parameters['id'],
+                $endpoint
+            );
+        }
+
+        return $endpoint;
     }
 
     /**
@@ -72,6 +83,11 @@ abstract class Action
             'user' => $client->getUser(),
             'pass' => $client->getPassword()
         ];
+
+        $this->parameters = array_merge(
+            $this->defaults,
+            $this->parameters
+        );
 
         if (!empty($this->parameters)) {
             $message['content'] = $this->compileParameters();
