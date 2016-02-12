@@ -55,6 +55,8 @@ class Connection
 
     public function send(Action $action)
     {
+        $action->prepare();
+
         if (!$action->validate()) {
             throw new ActionException('Request validation failed: '.$action->getLastValidationError());
         }

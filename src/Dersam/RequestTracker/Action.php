@@ -84,11 +84,6 @@ abstract class Action
             'pass' => $client->getPassword()
         ];
 
-        $this->parameters = array_merge(
-            $this->defaults,
-            $this->parameters
-        );
-
         if (!empty($this->parameters)) {
             $message['content'] = $this->compileParameters();
         }
@@ -133,5 +128,13 @@ abstract class Action
         }
 
         return $parsedResponseData;
+    }
+
+    public function prepare()
+    {
+        $this->parameters = array_merge(
+            $this->defaults,
+            $this->parameters
+        );
     }
 }

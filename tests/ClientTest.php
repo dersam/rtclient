@@ -3,6 +3,7 @@ namespace Dersam\RequestTracker\Tests;
 
 use Dersam\RequestTracker\Action\CommentTicket;
 use Dersam\RequestTracker\Action\ReplyTicket;
+use Dersam\RequestTracker\Action\SearchTickets;
 
 /**
  *
@@ -92,5 +93,19 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $out = $rt->send($action);
 
         $this->assertTrue($out);
+    }
+
+    public function testSearchTickets()
+    {
+        $rt = $this->getRequestTracker();
+        $action = new SearchTickets([
+            'query' => "Owner='Nobody'",
+            'orderBy' => '-Created'
+        ]);
+
+        $searchResults = $rt->send($action);
+
+        $this->assertInternalType('array', $searchResults);
+        $this->assertEquals('Lorem Ipsum', current($searchResults));
     }
 }
