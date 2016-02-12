@@ -105,7 +105,11 @@ abstract class Action
         return $content;
     }
 
-    function processResponse(array $response)
+    /**
+     * @param array $response
+     * @return mixed
+     */
+    public function processResponse(array $response)
     {
         $response = explode(chr(10), $response['body']);
         array_shift($response); //skip RT status response

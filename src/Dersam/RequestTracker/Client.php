@@ -69,10 +69,6 @@ class Client
         curl_setopt($ch, CURLOPT_URL, $destination);
         curl_setopt($ch, CURLOPT_POST, 1);
 
-        if (!empty($contentType)) {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-type: $contentType"));
-        }
-
         array_unshift($message, "");
         curl_setopt($ch, CURLOPT_POSTFIELDS, $message);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

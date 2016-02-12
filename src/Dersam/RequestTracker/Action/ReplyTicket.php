@@ -10,7 +10,6 @@ namespace Dersam\RequestTracker\Action;
 
 
 use Dersam\RequestTracker\Action;
-use Dersam\RequestTracker\Client;
 
 class ReplyTicket extends Action
 {
