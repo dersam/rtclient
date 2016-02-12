@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/dersam/rtclient.svg?branch=master)](https://travis-ci.org/dersam/rtclient)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dersam/rtclient/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dersam/rtclient/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/dersam/rtclient/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/dersam/rtclient/?branch=master)
 
 Provides a PHP client library for the Request Tracker API.
 
