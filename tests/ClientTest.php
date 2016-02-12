@@ -1,6 +1,7 @@
 <?php
 namespace Dersam\RequestTracker\Tests;
 
+use Dersam\RequestTracker\Action\CommentTicket;
 use Dersam\RequestTracker\Action\ReplyTicket;
 
 /**
@@ -65,6 +66,28 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $action = new ReplyTicket([
             'id' => $id,
             'Text' => 'this is a test reply'
+        ]);
+        $out = $rt->send($action);
+
+        $this->assertTrue($out);
+    }
+
+    public function testCommentTicket()
+    {
+        $rt = $this->getRequestTracker();
+
+        $action = new \Dersam\RequestTracker\Action\CreateTicket([
+            'Queue'=>'General',
+            'Requestor'=>'test@example.com',
+            'Subject'=>'Lorem Ipsum',
+            'Text'=>'dolor sit amet'
+        ]);
+
+        $id = $rt->send($action);
+
+        $action = new CommentTicket([
+            'id' => $id,
+            'Text' => 'this is a test comment'
         ]);
         $out = $rt->send($action);
 
