@@ -21,8 +21,6 @@ class SearchTickets extends Action
 
     public function getEndpoint()
     {
-        $hello = '';
-
         return
             $this->endpoint
             ."{$this->parameters['type']}?query="
