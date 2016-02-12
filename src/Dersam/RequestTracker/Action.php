@@ -77,7 +77,7 @@ abstract class Action
         return $valid;
     }
 
-    public function buildMessage(Client $client)
+    public function buildMessage(Connection $client)
     {
         $message = [
             'user' => $client->getUser(),

@@ -27,7 +27,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $host = $this->getHost();
 
-        return new \Dersam\RequestTracker\Client(
+        return new \Dersam\RequestTracker\Connection(
             "$host",
             'root',
             'password'

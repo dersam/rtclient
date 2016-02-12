@@ -16,7 +16,7 @@ use Dersam\RequestTracker\Exceptions\RequestTrackerException;
  * @method int|boolean createTicket($parameters)
  * @method int|boolean replyTicket($parameters)
  */
-class Client
+class Connection
 {
     protected $user;
     protected $password;
