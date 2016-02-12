@@ -12,5 +12,10 @@ namespace Dersam\RequestTracker;
 
 class Client
 {
+    protected $connection;
 
+    public function __construct(Connection $connection)
+    {
+        $this->connection = $connection;
+    }
 }
