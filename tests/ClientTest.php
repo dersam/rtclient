@@ -4,6 +4,7 @@ namespace Dersam\RequestTracker\Tests;
 use Dersam\RequestTracker\Action\CommentTicket;
 use Dersam\RequestTracker\Action\ReplyTicket;
 use Dersam\RequestTracker\Action\SearchTickets;
+use Dersam\RequestTracker\Client;
 use Dersam\RequestTracker\Exceptions\ActionException;
 
 /**
@@ -25,7 +26,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         return 'http://localhost:8080';
     }
 
-    public function getRequestTracker()
+    public function getConnection()
     {
         $host = $this->getHost();
 
@@ -36,69 +37,68 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function getClient()
+    {
+        return new Client($this->getConnection());
+    }
+
     public function testCreateTicket()
     {
-        $rt = $this->getRequestTracker();
-
-        $action = new \Dersam\RequestTracker\Action\CreateTicket([
-            'Queue'=>'General',
-            'Requestor'=>'test@example.com',
-            'Subject'=>'Lorem Ipsum',
-            'Text'=>'dolor sit amet'
-        ]);
-
-        $id = $rt->send($action);
+        $id = $this->getClient()->createTicket(
+            'General',
+            'test@example.com',
+            [
+                'Subject'=>'Lorem Ipsum',
+                'Text'=>'dolor sit amet'
+            ]
+        );
 
         $this->assertTrue(is_int($id));
     }
 
     public function testReplyTicket()
     {
-        $rt = $this->getRequestTracker();
+        $client = $this->getClient();
 
-        $action = new \Dersam\RequestTracker\Action\CreateTicket([
-            'Queue'=>'General',
-            'Requestor'=>'test@example.com',
-            'Subject'=>'Lorem Ipsum',
-            'Text'=>'dolor sit amet'
-        ]);
+        $id = $client->createTicket(
+            'General',
+            'test@example.com',
+            [
+                'Subject'=>'Lorem Ipsum',
+                'Text'=>'dolor sit amet'
+            ]
+        );
 
-        $id = $rt->send($action);
-
-        $action = new ReplyTicket([
-            'id' => $id,
+        $out = $client->replyTicket($id, [
             'Text' => 'this is a test reply'
         ]);
-        $out = $rt->send($action);
 
         $this->assertTrue($out);
     }
 
     public function testCommentTicket()
     {
-        $rt = $this->getRequestTracker();
+        $client = $this->getClient();
 
-        $action = new \Dersam\RequestTracker\Action\CreateTicket([
-            'Queue'=>'General',
-            'Requestor'=>'test@example.com',
-            'Subject'=>'Lorem Ipsum',
-            'Text'=>'dolor sit amet'
-        ]);
+        $id = $client->createTicket(
+            'General',
+            'test@example.com',
+            [
+                'Subject'=>'Lorem Ipsum',
+                'Text'=>'dolor sit amet'
+            ]
+        );
 
-        $id = $rt->send($action);
-
-        $action = new CommentTicket([
-            'id' => $id,
+        $out = $client->commentTicket($id, [
             'Text' => 'this is a test comment'
         ]);
-        $out = $rt->send($action);
 
         $this->assertTrue($out);
     }
 
     public function testSearchTickets()
     {
-        $rt = $this->getRequestTracker();
+        $rt = $this->getConnection();
         $action = new SearchTickets([
             'query' => "Owner='Nobody'",
             'orderBy' => '-Created'
@@ -114,14 +114,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(ActionException::class);
 
-        $rt = $this->getRequestTracker();
+        $rt = $this->getConnection();
         $action = new \Dersam\RequestTracker\Action\CreateTicket([]);
         $id = $rt->send($action);
     }
 
     public function testActionSet()
     {
-        $rt = $this->getRequestTracker();
+        $rt = $this->getConnection();
         $action = new \Dersam\RequestTracker\Action\CreateTicket([]);
         $action->set('Queue', 'General');
         $action->set('Requestor', 'bob@example.com');

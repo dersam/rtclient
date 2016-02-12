@@ -10,6 +10,10 @@
 namespace Dersam\RequestTracker;
 
 
+use Dersam\RequestTracker\Action\CommentTicket;
+use Dersam\RequestTracker\Action\CreateTicket;
+use Dersam\RequestTracker\Action\ReplyTicket;
+
 class Client
 {
     protected $connection;
@@ -17,5 +21,40 @@ class Client
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
+    }
+
+    /**
+     * @param $queue
+     * @param $requestor
+     * @param array $parameters
+     * @return int
+     * @throws Exceptions\ActionException
+     */
+    public function createTicket($queue, $requestor, $parameters = [])
+    {
+        $parameters['Queue'] = $queue;
+        $parameters['Requestor'] = $requestor;
+
+        return $this->connection->send(new CreateTicket($parameters));
+    }
+
+    /**
+     * @param $id
+     * @param array $parameters
+     * @return boolean
+     * @throws Exceptions\ActionException
+     */
+    public function replyTicket($id, $parameters = [])
+    {
+        $parameters['id'] = $id;
+
+        return $this->connection->send(new ReplyTicket($parameters));
+    }
+
+    public function commentTicket($id, $parameters = [])
+    {
+        $parameters['id'] = $id;
+
+        return $this->connection->send(new CommentTicket($parameters));
     }
 }
