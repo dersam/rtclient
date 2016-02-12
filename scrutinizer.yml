@@ -9,6 +9,9 @@ tools:
     php_code_sniffer:
         config:
             standard: "PSR2"
+    php_cs_fixer:
+        config:
+            standard: "PSR2"
 
     # Runs Scrutinizer's PHP Analyzer Tool
     php_analyzer:
