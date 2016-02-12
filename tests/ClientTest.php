@@ -104,7 +104,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'orderBy' => '-Created'
         ]);
 
-        $searchResults = $rt->send($action);
+        $searchResults = $this->getClient()->search(
+            "Owner='Nobody'",
+            "-Created"
+        );
 
         $this->assertInternalType('array', $searchResults);
         $this->assertEquals('Lorem Ipsum', current($searchResults));

@@ -13,6 +13,7 @@ namespace Dersam\RequestTracker;
 use Dersam\RequestTracker\Action\CommentTicket;
 use Dersam\RequestTracker\Action\CreateTicket;
 use Dersam\RequestTracker\Action\ReplyTicket;
+use Dersam\RequestTracker\Action\SearchTickets;
 
 class Client
 {
@@ -56,5 +57,15 @@ class Client
         $parameters['id'] = $id;
 
         return $this->connection->send(new CommentTicket($parameters));
+    }
+
+    public function search($query, $orderBy, $type = 'ticket', $format = 's')
+    {
+        return $this->connection->send(new SearchTickets([
+            'type' => $type,
+            'query' => $query,
+            'orderBy' => $orderBy,
+            'format' => $format
+        ]));
     }
 }
