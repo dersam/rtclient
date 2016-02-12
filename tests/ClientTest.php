@@ -1,4 +1,5 @@
 <?php
+use Dersam\RequestTracker\Action\ReplyTicket;
 
 /**
  *
@@ -34,12 +35,14 @@ class ClientTest extends PHPUnit_Framework_TestCase
     {
         $rt = $this->getRequestTracker();
 
-        $id = $rt->createTicket([
+        $action = new \Dersam\RequestTracker\Action\CreateTicket([
             'Queue'=>'General',
             'Requestor'=>'test@example.com',
             'Subject'=>'Lorem Ipsum',
             'Text'=>'dolor sit amet'
         ]);
+
+        $id = $rt->send($action);
 
         $this->assertTrue(is_int($id));
     }
@@ -48,17 +51,20 @@ class ClientTest extends PHPUnit_Framework_TestCase
     {
         $rt = $this->getRequestTracker();
 
-        $id = $rt->createTicket([
+        $action = new \Dersam\RequestTracker\Action\CreateTicket([
             'Queue'=>'General',
             'Requestor'=>'test@example.com',
             'Subject'=>'Lorem Ipsum',
             'Text'=>'dolor sit amet'
         ]);
 
-        $out = $rt->replyTicket(array(
+        $id = $rt->send($action);
+
+        $action = new ReplyTicket([
             'id' => $id,
             'Text' => 'this is a test reply'
-        ));
+        ]);
+        $out = $rt->send($action);
 
         $this->assertTrue($out);
     }
